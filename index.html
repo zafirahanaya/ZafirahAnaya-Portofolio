@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zafirah Anaya | Data Analyst Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f4ff',
+                            100: '#e0e8ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            cyan: '#06b6d4',
+                            glow: '#60a5fa'
+                        },
+                        dark: {
+                            bg: '#080c14',
+                            card: '#0f172a',
+                            border: '#1e293b',
+                            hover: '#1a243a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080c14;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Gradient Glow Background Elements */
+        .glow-bg {
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.22) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-slate-100 min-h-screen transition-colors duration-300 light:bg-slate-50 light:text-slate-800">
+
+    <!-- Ambient Glow Effects -->
+    <div class="glow-bg top-10 left-1/4"></div>
+    <div class="glow-bg top-[35%] right-10 bg-cyan-600/15"></div>
+    <div class="glow-bg bottom-10 left-10 bg-indigo-600/15"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md border-b border-slate-800/80 light:border-slate-200/80 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
+                    ZA
+                </div>
+                <span class="font-bold text-lg tracking-tight text-white light:text-slate-900">
+                    Zafirah<span class="text-brand-cyan"> Anaya</span></span>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300 light:text-slate-600">
+                <a href="#about" class="hover:text-brand-cyan transition-colors">About</a>
+                <a href="#skills" class="hover:text-brand-cyan transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-brand-cyan transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-brand-cyan transition-colors">Experience</a>
+                <a href="#certifications" class="hover:text-brand-cyan transition-colors">Certifications</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="p-2.5 rounded-xl border 
+                border-slate-800 light:border-slate-200 bg-slate-900/50 light:bg-slate-100 
+                text-slate-300 light:text-slate-700 hover:text-brand-cyan transition-colors">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+
+                <!-- Contact CTA Button -->
+                <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r 
+                from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 
+                text-white font-medium text-sm shadow-lg shadow-blue-500/20 
+                transition-all transform hover:-translate-y-0.5">
+                    Contact
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 space-y-8">
+
+        <!-- ================= HERO BENTO GRID ================= -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            
+            <!-- Main Hero Profile Card (Col-8) -->
+            <div class="lg:col-span-8 glass-card rounded-3xl p-6 sm:p-8 
+            flex flex-col justify-between relative overflow-hidden group 
+            hover:border-slate-700 transition-all duration-300">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 
+                bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="space-y-6">
+                    <!-- Status Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 
+                    rounded-full bg-emerald-500/10 border border-emerald-500/20 
+                    text-emerald-400 text-xs font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Fresh Graduate • Open for Relocation & Remote Work
+                    </div>
+
+                    <!-- Profile Info with Real Photo -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                        <div class="relative shrink-0">
+                            <img src="POTO.jpg" 
+     onerror="this.onerror=null; this.src='https://placehold.co/219x329/1e293b/60a5fa?text=ZA';" 
+     alt="Zafirah Anaya" 
+     class="w-[150px] h-[225px] sm:w-[200px] sm:h-[200px] rounded-2xl object-cover ring-2 ring-brand-cyan/50 shadow-xl">
+                            <div class="absolute -bottom-1 -right-1 bg-blue-600 
+                            text-white p-1.5 rounded-lg text-xs shadow-md">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h1 class="text-3xl sm:text-4xl font-extrabold text-white light:text-slate-900 tracking-tight">
+                                ZAFIRAH ANAYA
+                            </h1>
+                            <p class="text-brand-cyan font-semibold text-lg mt-0.5">
+                                Data Analyst 
+                            </p>
+                            <p class="text-slate-400 light:text-slate-600 text-xs mt-1 flex flex-wrap items-center gap-3">
+                                <span><i class="fa-solid fa-location-dot text-brand-cyan mr-1"></i> Padang, Indonesia</span>
+                                <span><i class="fa-solid fa-envelope text-emerald-400 mr-1"></i> zafirahanaya05@gmail.com</span>
+                            </p>
+                        </div>
+                    </div>
+
+                   <!-- Summary Statement -->
+<p class="text-lg sm:text-xl font-medium text-white light:text-slate-900 leading-relaxed mb-3">
+    Data Analyst focused on transforming raw data into dashboards, reports, and actionable business insights.
+</p>
+<p class="text-slate-300 light:text-slate-600 text-sm sm:text-base leading-relaxed">
+    Information System graduate with hands-on experience in data analysis, dashboard development, KPI monitoring, reporting automation, and data quality practices. Skilled in 
+    <strong class="text-brand-cyan">Python, SQL, Excel, Looker Studio, and Tableau</strong> 
+    to support clear reporting and data-driven decision-making.
+</p>
+                </div>
+
+                <!-- Action Links / Buttons -->
+                <div class="pt-6 mt-6 border-t border-slate-800 light:border-slate-200 flex flex-wrap gap-3">
+                    <button onclick="downloadCV()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-sm font-semibold transition-all shadow-md shadow-blue-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down"></i> Download CV 
+                    </button>
+                    <a href="https://linkedin.com/in/zafirah-anaya-a6b34524b" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-900/80 light:bg-slate-100 border border-slate-800 light:border-slate-300 text-slate-300 light:text-slate-700 hover:text-white text-sm font-medium transition-colors flex items-center gap-2">
+                        <i class="fa-brands fa-linkedin text-blue-400"></i> LinkedIn
+                    </a>
+                    <a href="mailto:zafirahanya05@gmail.com" class="px-4 py-2.5 rounded-xl bg-slate-900/80 light:bg-slate-100 border border-slate-800 light:border-slate-300 text-slate-300 light:text-slate-700 hover:text-white text-sm font-medium transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-rose-400"></i> zafirahanya05@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats & GPA Highlights (Col-4) -->
+            <div class="lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-5">
+                
+                <!-- Metric 1: GPA -->
+                <div class="glass-card rounded-3xl p-5 flex items-center gap-4 hover:border-brand-cyan/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900 tracking-tight">
+                            3.85 <span class="text-xs font-normal text-slate-400">/ 4.00</span>
+                        </div>
+                        <p class="text-xs text-slate-400 light:text-slate-500 font-medium">
+                            GPA (Cum Laude) Universitas Putra Indonesia YPTK Padang</p>
+                    </div>
+                </div>
+
+                <!-- Metric 2: Academic Award -->
+                <div class="glass-card rounded-3xl p-5 flex items-center gap-4 hover:border-amber-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-white light:text-slate-900 tracking-tight">
+                            3rd Highest GPA
+                        </div>
+                        <p class="text-xs text-slate-400 light:text-slate-500 font-medium">
+                            Academic Achievement Award 2023</p>
+                    </div>
+                </div>
+
+                <!-- Metric 3: Certifications -->
+                <div class="glass-card rounded-3xl p-5 flex items-center gap-4 hover:border-emerald-500/50 transition-all col-span-2 lg:col-span-1">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900 tracking-tight">
+                            Huawei
+                        </div>
+                        <p class="text-xs text-slate-400 light:text-slate-500 font-medium">
+                            ICT Academy Certified (2025)</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================= BENTO KEAHLIAN / SKILLS ================= -->
+        <section id="skills" class="space-y-4">
+            <div>
+                <h2 class="text-2xl font-bold text-white light:text-slate-900 tracking-tight flex items-center gap-2">
+                    <i class="fa-solid fa-laptop-code text-brand-cyan"></i>
+                     Skills
+                </h2>
+                <p class="text-xs text-slate-400 light:text-slate-500">
+                    Technical Expertise & Methodology</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+                <!-- Category 1: Programming & Querying -->
+                <div class="glass-card rounded-2xl p-5 space-y-3 hover:border-blue-500/50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white light:text-slate-900">Programming & Querying</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Python</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Pandas & NumPy</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Matplotlib</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Scikit-Learn</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">SQL</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">R Language</span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Visualization / BI -->
+                <div class="glass-card rounded-2xl p-5 space-y-3 hover:border-cyan-500/50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white light:text-slate-900">Visualization / BI</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Power BI</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Tableau</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Looker Studio</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">DAX Formulas</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Power Query</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Data Analysis & Statistics -->
+                <div class="glass-card rounded-2xl p-5 space-y-3 hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                            <i class="fa-solid fa-filter"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white light:text-slate-900">Data Analysis</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Data Cleaning</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Data Wrangling</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">EDA</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">KPI Monitoring</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Cohort Analysis</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Hypothesis Testing</span>
+                    </div>
+                </div>
+
+                <!-- Category 4: Productivity & Business -->
+                <div class="glass-card rounded-2xl p-5 space-y-3 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                            <i class="fa-solid fa-file-excel"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white light:text-slate-900">Productivity & Business</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Microsoft Excel</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Google Sheets</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Pivot Tables</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Analytical Thinking</span>
+                        <span class="text-xs bg-slate-800/80 light:bg-slate-200 text-slate-300 light:text-slate-700 px-2.5 py-1 rounded-lg">Stakeholder Comm</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PROYEK UNGGULAN (SELECTED PROJECTS) ================= -->
+        <section id="projects" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white light:text-slate-900 tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-folder-open text-brand-cyan"></i> Projects
+                    </h2>
+                    <p class="text-xs text-slate-400 light:text-slate-500">
+                        Real case studies on data processing, KPI dashboard creation, and executive reporting.</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 p-1 bg-slate-900/80 light:bg-slate-200 rounded-xl border border-slate-800 light:border-slate-300 text-xs">
+                    <button onclick="filterProjects('all')" class="project-tab active px-3 py-1.5 rounded-lg font-medium text-slate-300 light:text-slate-700 bg-blue-600 text-white transition-all">All Projects</button>
+                    <button onclick="filterProjects('powerbi')" class="project-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all">Power BI</button>
+                    <button onclick="filterProjects('excel')" class="project-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white transition-all">Excel Dashboard</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Project Card 1: Internal Audit & Risk -->
+<div class="project-card powerbi glass-card rounded-3xl p-6 flex flex-col justify-between group hover:border-blue-500/60 transition-all duration-300">
+    <div class="space-y-4">
+        <div class="flex justify-between items-start">
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                Power BI Dashboard
+            </span>
+            <span class="text-xs text-slate-400 font-semibold">2026</span>
+        </div>
+
+        <h3 class="text-lg font-bold text-white light:text-slate-900 group-hover:text-brand-cyan transition-colors">
+            Monitoring Internal Audit Findings, Risk Exposure & Financial Impact
+        </h3>
+
+        <p class="text-slate-300 light:text-slate-600 text-xs leading-relaxed line-clamp-3">
+            Developing interactive Power BI dashboards to monitor audit findings, evaluate risk exposure, and 
+            measure financial impact across business units.
+        </p>
+
+        <!-- Key Badges -->
+        <div class="flex flex-wrap gap-1.5 pt-1">
+            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Power BI</span>
+            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Power Query</span>
+            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Data Cleaning</span>
+            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">DAX</span>
+            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Audit KPI</span>
+        </div>
+    </div>
+
+    <!-- Bottom Actions: Modals & Live Link -->
+    <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+        <button onclick="openModal('proj1')" class="text-xs font-semibold text-brand-cyan hover:underline flex items-center gap-1">
+            Lihat Detail <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+        
+        <!-- Live Link to GitHub Project -->
+        <a href="https://github.com/zafirahanaya/powerbi-internal-audit-dashboard" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors">
+            <i class="fa-brands fa-github text-sm text-white"></i>
+            <span>GitHub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400"></i>
+        </a>
+    </div>
+</div>
+
+                <!-- Project Card 2: Sales & Logistics Performance -->
+                <div class="project-card excel glass-card rounded-3xl p-6 flex flex-col justify-between group hover:border-emerald-500/60 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                                Excel Dashboard
+                            </span>
+                            <span class="text-xs text-slate-400 font-semibold">2026</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white light:text-slate-900 group-hover:text-emerald-400 transition-colors">
+                            Sales & Logistics Performance Dashboard
+                        </h3>
+
+                        <p class="text-slate-300 light:text-slate-600 text-xs leading-relaxed line-clamp-3">
+                            Building an interactive Excel dashboard to analyze sales performance, logistics delivery status, inventory levels, revenue, and regional profitability.
+                        </p>
+
+                        <!-- Key Badges -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Microsoft Excel</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Pivot Tables</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Map Visualizations</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Data Cleaning</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Slicers</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Actions: Modals & Live Link -->
+    <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+        <button onclick="openModal('proj2')" class="text-xs font-semibold text-brand-cyan hover:underline flex items-center gap-1">
+            Lihat Detail <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+        
+        <!-- Live Link to GitHub Project -->
+        <a href="https://github.com/zafirahanaya/powerbi-internal-audit-dashboard" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors">
+            <i class="fa-brands fa-github text-sm text-white"></i>
+            <span>GitHub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400"></i>
+        </a>
+    </div>
+</div>
+
+                <!-- Project Card 3: Sales Performance Toko Elektronik -->
+                <div class="project-card powerbi glass-card rounded-3xl p-6 flex flex-col justify-between group hover:border-cyan-500/60 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                                Retail & E-Commerce
+                            </span>
+                            <span class="text-xs text-slate-400 font-semibold">2026</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white light:text-slate-900 group-hover:text-cyan-400 transition-colors">
+                            Sales Performance Toko Elektronik
+                        </h3>
+
+                        <p class="text-slate-300 light:text-slate-600 text-xs leading-relaxed line-clamp-3">
+                           Developing visual reports and interactive Power BI dashboards to analyze electronic product trends, profitability, and the monitoring of monthly sales metrics.
+                        </p>
+
+                        <!-- Key Badges -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Power BI</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Excel Data Prep</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Data Cleaning</span>
+                            <span class="text-[10px] bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Retail Analytics</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Actions: Modals & Live Link -->
+    <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+        <button onclick="openModal('proj3')" class="text-xs font-semibold text-brand-cyan hover:underline flex items-center gap-1">
+            Lihat Detail <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+        
+        <!-- Live Link to GitHub Project -->
+        <a href="https://github.com/zafirahanaya/powerbi-internal-audit-dashboard" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors">
+            <i class="fa-brands fa-github text-sm text-white"></i>
+            <span>GitHub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-slate-400"></i>
+        </a>
+    </div>
+</div>
+
+            </div>
+        </section>
+
+        <!-- ================= PENGALAMAN KERJA & ORGANISASI ================= -->
+        <section id="experience" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Internships Section -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                <h2 class="text-xl font-bold text-white light:text-slate-900 tracking-tight flex items-center gap-2">
+                    <i class="fa-solid fa-briefcase text-brand-cyan"></i> Internship
+                </h2>
+
+                <div class="space-y-6 relative border-l-2 border-slate-800 light:border-slate-300 ml-3 pl-5">
+                    
+                    <!-- Exp 1: Camat Padang Timur -->
+                    <div class="relative">
+                        <div class="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-blue-500 ring-4 ring-dark-bg"></div>
+                        <span class="text-xs font-semibold text-brand-cyan">Mei 2025 – Juni 2025</span>
+                        <h3 class="text-base font-bold text-white light:text-slate-900 mt-0.5">General Division Intern</h3>
+                        <p class="text-xs text-slate-300 light:text-slate-700 font-medium">Kantor Camat Padang Timur</p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>Supported administrative and operasional activities withing the general affairs devision.</li>
+                            <li>Assisted in preparing infrastructure development reports, including bridge and irrigation projects</li>
+                            <li>Processed project budget and progress data using Microsoft Excel for monitoring and reporting purposes.</li>
+                            <li>Prepared official reports, documentation, and administrative records to support government operations.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Exp 2: BAPENDA Kota Padang -->
+                    <div class="relative">
+                        <div class="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-cyan-500 ring-4 ring-dark-bg"></div>
+                        <span class="text-xs font-semibold text-cyan-400">Feb 2025 – Apr 2025</span>
+                        <h3 class="text-base font-bold text-white light:text-slate-900 mt-0.5">Administrative Intern</h3>
+                        <p class="text-xs text-slate-300 light:text-slate-700 font-medium">BAPENDA Kota Padang</p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>Assisted in administrative operations and document management activities.</li>
+                            <li>Supported data validation, reporting, and record maintenance using Microsoft Excel.</li>
+                            <li>Organized digital and physical documentation to improve information accessibility.</li>
+                            <li>Contributed to daily administrative processes and public service support activities.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Leadership & Organizational Experience -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                <h2 class="text-xl font-bold text-white light:text-slate-900 tracking-tight flex items-center gap-2">
+                    <i class="fa-solid fa-users text-amber-400"></i> Leadership & Organizational Experience
+                </h2>
+
+                <div class="space-y-6 relative border-l-2 border-slate-800 light:border-slate-300 ml-3 pl-5">
+                    
+                    <!-- Org 1: Pekan REMA -->
+                    <div class="relative">
+                        <div class="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-amber-400 ring-4 ring-dark-bg"></div>
+                        <span class="text-xs font-semibold text-amber-400">2024</span>
+                        <h3 class="text-base font-bold text-white light:text-slate-900 mt-0.5">Public Relations Coordinator</h3>
+                        <p class="text-xs text-slate-300 light:text-slate-700 font-medium">Pekan REMA (Republik Mahasiswa)</p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>Directed a Public Relations team of 7 members to execute event communication strategies, ensuring seamless coordination and workflow efficiency.</li>
+                            <li>Spearheaded partnerships by managing 10+ sponsor and media relations to maximize funding and event visibility.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Org 2: IGTS -->
+                    <div class="relative">
+                        <div class="absolute -left-[27px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-600 ring-4 ring-dark-bg"></div>
+                        <span class="text-xs font-semibold text-slate-400">2023</span>
+                        <h3 class="text-base font-bold text-white light:text-slate-900 mt-0.5">Event Division Staff</h3>
+                        <p class="text-xs text-slate-300 light:text-slate-700 font-medium">IGTS (IKASATIBASA Goes To School)</p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>Assisted in planning and executing educational outreach events.</li>
+                            <li>Coordinated speaker invitations, correspondence, and event administration.</li>
+                            <li>Prepared event run-downs and ensured activities were conducted according to schedule.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= SERTIFIKASI & PRESTASI ================= -->
+        <section id="certifications" class="space-y-4">
+    <div>
+        <h2 class="text-2xl font-bold text-white light:text-slate-900 tracking-tight flex items-center gap-2">
+            <i class="fa-solid fa-award text-emerald-400"></i> Certifications
+        </h2>
+        <p class="text-xs text-slate-400 light:text-slate-500">Academic achievements and technical competency licenses.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <!-- Cert 1 -->
+        <a href="https://drive.google.com/file/d/1EAaYNEOAlfRPs5w1Z-X0MYgKyGgpaXmB/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition-all flex items-start gap-3 group">
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 text-lg">
+                <i class="fa-brands fa-python"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-white light:text-slate-900 group-hover:text-emerald-400 transition-colors">Python Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i></h3>
+                <p class="text-xs text-slate-400">Huawei ICT Academy (2025)</p>
+            </div>
+        </a>
+
+        <!-- Cert 2 -->
+        <a href="https://drive.google.com/file/d/1JHgCj4Xhvbyznui9jKYbl0UuTxClb-ov/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition-all flex items-start gap-3 group">
+            <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 text-lg">
+                <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-white light:text-slate-900 group-hover:text-blue-400 transition-colors">Networking Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i></h3>
+                <p class="text-xs text-slate-400">Huawei ICT Academy (2025)</p>
+            </div>
+        </a>
+
+        <!-- Cert 3 -->
+        <a href="https://drive.google.com/file/d/16E2LPKAx9q82ZP_7luCHveLsWjXv38Ib/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition-all flex items-start gap-3 group">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 text-lg">
+                <i class="fa-solid fa-code-branch"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-white light:text-slate-900 group-hover:text-cyan-400 transition-colors">Algorithms Certificate <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i></h3>
+                <p class="text-xs text-slate-400">Huawei ICT Academy (2025)</p>
+            </div>
+        </a>
+
+        <!-- Award -->
+        <a href="https://drive.google.com/file/d/16J88Xr25l4P4atwPkZabt69MVZMDLUB2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 border border-slate-800 hover:border-amber-500/50 transition-all flex items-start gap-3 group">
+            <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 text-lg">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-white light:text-slate-900 group-hover:text-amber-400 transition-colors">3rd Highest GPA Award <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i></h3>
+                <p class="text-xs text-slate-400">UPI YPTK Padang (2023)</p>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+        <!-- ================= FOOTER / CONTACT ================= -->
+        <footer id="contact" class="glass-card rounded-3xl p-8 text-center space-y-4 border border-slate-800/80">
+            <h2 class="text-2xl font-bold text-white light:text-slate-900 tracking-tight">Get in Touch!</h2>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
+                I'm always open to discussing new opportunities, interesting projects, or partnerships. Feel free to reach out through any of the channels above!
+            </p>
+            <div class="pt-2 flex flex-wrap justify-center gap-3">
+                <a href="mailto:zafirahanya05@gmail.com" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-blue-500/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Email
+                </a>
+                <a href="tel:085805101176" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-phone text-emerald-400"></i> 085805101176
+                </a>
+            </div>
+            <p class="text-[11px] text-slate-500 pt-6">
+                © 2026 Zafirah Anaya, S.Kom.
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- ================= PROJECT MODAL ================= -->
+    <div id="modalBackdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+        <div id="modalContainer" class="glass-card max-w-2xl w-full rounded-3xl p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 border border-slate-700">
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlTag = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlTag.classList.toggle('dark');
+            htmlTag.classList.toggle('light');
+        });
+
+        // Project Filtering
+        function filterProjects(category) {
+            const tabs = document.querySelectorAll('.project-tab');
+            const cards = document.querySelectorAll('.project-card');
+
+            tabs.forEach(tab => tab.classList.remove('bg-blue-600', 'text-white'));
+            event.target.classList.add('bg-blue-600', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Project Modal Details Data from CV (Ditambahkan link GitHub di setiap proyek)
+        const projectModalDetails = {
+            proj1: {
+                title: "Monitoring Internal Audit Findings, Risk Exposure, & Financial Impact",
+                category: "Power BI Executive Dashboard (2026)",
+                description: "Building an interactive Power BI dashboard to monitor internal audit findings, evaluate risk levels, and measure financial impact across various business units.",
+                highlights: [
+                    "Perform audit data transformation and modeling using Power Query and DAX.",
+                    "Develop a dynamic KPI dashboard for audit trends, risk categorization, and departmental performance.",
+                    "Generating executive insights to support risk monitoring and data-driven decision-making."
+                ],
+                tools: ["Power BI", "Power Query", "DAX", "Data Modeling", "Executive KPI Reporting"],
+                github: "https://github.com/zafirahanaya/PowerBi-DataVisualisasi-penjualan-toko-elektronik"
+            },
+            proj2: {
+                title: "Sales & Logistics Performance Dashboard",
+                category: "Excel Interactive Dashboard (2026)",
+                description: "A Microsoft Excel-based sales performance and logistics reporting system for monitoring inventory, revenue, and regional logistics trends.",
+                highlights: [
+                    "Data cleaning and data transformation for precise reporting.",
+                    "The use of Pivot Tables, Pivot Charts, Slicers, and Map Visualizations.",
+                    "Generate business insights regarding regional sales performance and inventory status."
+                ],
+                tools: ["Microsoft Excel", "Pivot Tables", "Slicers", "Map Visualizations", "Inventory Analytics"],
+                github: "https://github.com/zafirahanaya"
+            },
+            proj3: {
+                title: "Sales Performance Toko Elektronik",
+                category: "Power BI Retail Dashboard (2026)",
+                description: "Power BI dashboard for analyzing retail sales performance of electronic products, profitability margins, and product preference trends.",
+                highlights: [
+                    "Cleaning and validation of product data for an electronics store.",
+                    "Creation of periodic visual reports for monitoring weekly and monthly KPI targets.",
+                    "Presenting key insights through a performance matrix visualization."
+                ],
+                tools: ["Power BI", "Microsoft Excel", "Retail KPI", "Data Cleaning"],
+                github: "https://github.com/zafirahanaya/PowerBi-DataVisualisasi-penjualan-toko-elektronik"
+            }
+        };
+
+        function openModal(projectId) {
+            const detail = projectModalDetails[projectId];
+            const modalBody = document.getElementById('modalBody');
+
+            modalBody.innerHTML = `
+                <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                    <div>
+                        <span class="text-xs font-semibold text-brand-cyan">${detail.category}</span>
+                        <h3 class="text-xl font-bold text-white light:text-slate-900 mt-0.5">${detail.title}</h3>
+                    </div>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-white p-2 text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="space-y-4 text-sm text-slate-300 light:text-slate-600">
+                    <p>${detail.description}</p>
+
+                    <div>
+                        <h4 class="font-bold text-white light:text-slate-900 mb-2">Poin Penting & Kontribusi:</h4>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-slate-300">
+                            ${detail.highlights.map(h => `<li>${h}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-white light:text-slate-900 mb-2">Tools & Metode:</h4>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${detail.tools.map(t => `<span class="text-xs bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-2.5 py-1 rounded-lg">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian Tombol Aksi di Modal -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <a href="${detail.github}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-2 border border-slate-700 transition-colors">
+                        <i class="fa-brands fa-github text-sm"></i> Lihat Repositori GitHub
+                    </a>
+                    <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold">Tutup</button>
+                </div>
+            `;
+
+            const backdrop = document.getElementById('modalBackdrop');
+            const container = document.getElementById('modalContainer');
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                container.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeModal() {
+            const backdrop = document.getElementById('modalBackdrop');
+            const container = document.getElementById('modalContainer');
+            backdrop.classList.add('opacity-0');
+            container.classList.add('scale-95');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        function downloadCV() {
+            alert('Menyiapkan file CV resmi Zafirah Anaya...');
+        }
+    </script>
+</body>
+</html>
